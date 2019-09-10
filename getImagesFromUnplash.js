@@ -4,7 +4,7 @@ const fs = require("fs");
 const axios = require("axios");
 
 //   -----------------
-//   USER IMPUT CONFIG
+//   USER INPUT CONFIG
 //   -----------------
 
 var promptSchema = {
@@ -133,28 +133,28 @@ async function asyncForEach(array, callback) {
   }
 }
 
-async function sleep(milliseconds) {
-  await new Promise(resolve => setTimeout(resolve, milliseconds));
+function sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-function downloadImage(url, imagePath, index) {
-  return axios({
-    url,
-    responseType: "stream"
-  })
-    .then(
-      response =>
-        new Promise((resolve, reject) => {
-          response.data
-            .pipe(fs.createWriteStream(imagePath))
-            .on("finish", () => {
-              console.log(`  image ${index} download complete  `);
-              resolve();
-            })
-            .on("error", e => reject(e));
+async function downloadImage(url, imagePath, index) {
+  try {
+    const response = await axios({
+      url,
+      responseType: "stream"
+    });
+    return new Promise((resolve, reject) => {
+      response.data
+        .pipe(fs.createWriteStream(imagePath))
+        .on("finish", () => {
+          console.log(`  image ${index} download complete  `);
+          resolve();
         })
-    )
-    .catch(e => console.log(e));
+        .on("error", e => reject(e));
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function downloadImagesFromUrlList(urlArray, folderName) {
