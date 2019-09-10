@@ -11,17 +11,17 @@ var promptSchema = {
   properties: {
     search: {
       pattern: /^[a-zA-Z\s\-]+$/,
-      message: "What is the search term(s)?",
+      description: "What is the search term(s)?",
       required: true
     },
     number: {
       pattern: /^(0|[1-9][0-9]*)$/,
-      message: "How many results should we download?",
+      description: "How many results should we download?",
       required: true
     },
     folder: {
       pattern: /^[a-zA-Z\s\-]+$/,
-      message: "Which folder should we save these images to?",
+      description: "Which folder should we save these images to?",
       required: true
     }
   }
@@ -39,6 +39,14 @@ if (!fs.existsSync(`${imageLibraryPath}`)) {
 //   -------------
 
 (async () => {
+  console.log(
+    `  
+      Welcome to the Unsplash image scraper, let's get some nice images! ...
+    `
+  );
+
+  await sleep(500);
+
   prompt.start();
   const promptResult = await prompt.get(promptSchema);
   console.log(
@@ -49,7 +57,13 @@ if (!fs.existsSync(`${imageLibraryPath}`)) {
 
   await sleep(1000);
 
-  const browser = await puppeteer.launch({ headless: false }); // default is true
+  console.log(
+    `  
+      Obtaining results...
+    `
+  );
+
+  const browser = await puppeteer.launch({ headless: true }); // default is true
   const page = await browser.newPage();
   await page.goto(
     `https://www.unsplash.com/search/${slugify(promptResult.search)}`,

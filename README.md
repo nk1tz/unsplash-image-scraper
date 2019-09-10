@@ -1,6 +1,6 @@
 # Unplash Image Scraper
 
-Get plenty of images from unsplash.com very easily using only your terminal
+Get plenty of images from unsplash.com very easily using only your terminal. This project uses puppeteer in headless mode.
 
 ## How to use
 
