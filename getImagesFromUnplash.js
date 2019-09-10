@@ -59,7 +59,7 @@ if (!fs.existsSync(`${imageLibraryPath}`)) {
 
   console.log(
     `  
-      Obtaining results...
+      Obtaining results from unsplash.com/search/${slugify(promptResult.search)}
     `
   );
 
@@ -108,7 +108,7 @@ if (!fs.existsSync(`${imageLibraryPath}`)) {
 
   console.log(
     `  
-      Downloading...
+      Downloading images to ${imageLibraryPath}/${promptResult.folder}/
     `
   );
 
