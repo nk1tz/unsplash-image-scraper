@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^0.19.0",
+    "prompt": "^1.0.0",
+    "prompt-async": "^0.9.9",
+    "puppeteer": "^1.19.0"
+  }
+}
